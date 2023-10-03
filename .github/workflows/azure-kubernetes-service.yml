@@ -11,14 +11,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
+      - name: Check Azure CLI Version
+        run: az --version
       - name: Set up Azure CLI
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
      
-      - name: Check Azure CLI Version
-        run: az --version
+    
       - name: Debug Azure Credentials
         run: |
           echo "${{ secrets.AZURE_CREDENTIALS }}"
