@@ -16,8 +16,10 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+     
+      - name: Check Azure CLI Version
+        run: az --version
 
-      
       - name: Configure Kubectl
         run: |
           echo "${{ secrets.AZURE_KUBECONFIG }}" > kubeconfig.yaml
