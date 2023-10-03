@@ -1,0 +1,30 @@
+name: Get AKS Resources
+
+on:
+  workflow_dispatch: # Manually trigger the workflow
+  schedule:
+    - cron: '0 0 * * *' # Scheduled trigger (optional)
+
+jobs:
+  get-aks-resources:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      
+      - name: Configure Kubectl
+        run: |
+          echo "${{ secrets.AZURE_KUBECONFIG }}" > kubeconfig.yaml
+          kubectl config use-context <your-aks-context> --kubeconfig=kubeconfig.yaml
+
+
+
+      - name: Get AKS Resources
+        run: |
+          kubectl get all 
