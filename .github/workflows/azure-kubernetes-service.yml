@@ -19,6 +19,13 @@ jobs:
      
       - name: Check Azure CLI Version
         run: az --version
+      - name: Debug Azure Credentials
+        run: |
+          echo "${{ secrets.AZURE_CREDENTIALS }}"
+      - name: List Azure Subscriptions
+        run: az account list
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Configure Kubectl
         run: |
